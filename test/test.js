@@ -19,7 +19,6 @@ describe('rollup-plugin-postcss-lit', () => {
             plugins: [
                 postcss({
                     inject: false,
-                    namedExports: true,
                 }),
                 postcssLit(),
             ],

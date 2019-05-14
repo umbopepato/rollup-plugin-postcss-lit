@@ -61,8 +61,6 @@ export class MyComponent extends LitElement {
 
 ## Options
 
-The plugin accepts the following options:
-
 ```javascript
 postcssLit({
   // A glob (or array of globs) of files to include.
@@ -77,7 +75,7 @@ postcssLit({
 }),
 ```
 
-## When should I use this?
+## When should I use it?
 
 This plugin is meant to be used with [`rollup-plugin-postcss`](https://github.com/egoist/rollup-plugin-postcss).
 If you only need to load plain css files in your LitElement components,
