@@ -41,11 +41,11 @@ import otherStyles from './other-styles.scss';
 
 @customElement('my-component')
 export class MyComponent extends LitElement {
-    
-  static styles = myStyles; // Add a single style
   
-  static styles = [myStyles, otherStyles]; // Or more
+  // Add a single style
+  static styles = myStyles;
   
+  // Or more!
   static styles = [myStyles, otherStyles, css`
     .foo {
       padding: ${...};
