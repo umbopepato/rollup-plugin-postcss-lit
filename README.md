@@ -35,17 +35,26 @@ export default {
 Enjoy postcss processed styles in your LitElement components!
 
 ```typescript
-import {customElement, LitElement} from 'lit-element';
+import {customElement, LitElement, css} from 'lit-element';
 import myStyles from './styles.css';
+import otherStyles from './other-styles.scss';
 
 @customElement('my-component')
 export class MyComponent extends LitElement {
     
-    static styles = myStyles;
-    
-    render() {
-        // ...
+  static styles = myStyles; // Add a single style
+  
+  static styles = [myStyles, otherStyles]; // Or more
+  
+  static styles = [myStyles, otherStyles, css`
+    .foo {
+      padding: ${...};
     }
+  `];
+  
+  render() {
+      // ...
+  }
 }
 ```
 
