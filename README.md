@@ -11,7 +11,7 @@ $ npm i -D rollup-plugin-postcss-lit
 ## Usage
 
 Add the `postcssLit` plugin _after_ `postcss`. This wraps postcss exported style strings with LitElement's `css`
-template literal tag. 
+template literal tag so you can import them directly in your components. 
 
 ```javascript
 // rollup.config.js
@@ -25,7 +25,8 @@ export default {
   },
   plugins: [
     postcss({
-      inject: false,
+      inject: false, // Injecting is not necessary if you only need to
+                     // import styles in LitElement components
     }),
     postcssLit(),
   ],
@@ -75,6 +76,12 @@ postcssLit({
   exclude,
 }),
 ```
+
+## When should I use this?
+
+This plugin is meant to be used with [`rollup-plugin-postcss`](https://github.com/egoist/rollup-plugin-postcss).
+If you only need to load plain css files in your LitElement components,
+consider using [`rollup-plugin-lit-css`](https://github.com/bennypowers/rollup-plugin-lit-css).
 
 ### License
 
