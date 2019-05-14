@@ -58,9 +58,9 @@ postcssLit({
   // A glob (or array of globs) of files to include.
   // By default this corresponds to the default extensions
   // handled by postcss ('**/*.{css,sss,pcss}'). Make sure
-  // to set this if want to load other extensions such as
-  // .scss, .less etc.
-  include,
+  // to set this if you want to load other extensions
+  // such as .scss, .less etc.
+  include: '**/*.{css,scss}',
   // A glob (or array of globs) of files to exclude.
   // Default: undefined
   exclude,
