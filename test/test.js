@@ -3,9 +3,18 @@ import postcss from 'rollup-plugin-postcss';
 import * as rollup from 'rollup';
 import assert from 'assert';
 
-describe('rollup-plugin-postcss-lit', function() {
-    it('should intercept stylesheets', function () {
-        return rollup.rollup({
+const expectedCode = `
+import {css as css$1} from 'lit-element';
+
+export var css$1\`.test {
+    color: white;
+    background: url("./prova.jpg");
+}\`
+`;
+
+describe('rollup-plugin-postcss-lit', () => {
+    it('should wrap an exported style string in the css template literal tag', async () => {
+        const bundle = await rollup.rollup({
             input: 'test/entry.js',
             plugins: [
                 postcss({
@@ -14,8 +23,8 @@ describe('rollup-plugin-postcss-lit', function() {
                 }),
                 postcssLit(),
             ],
-        }).then(value => {
-            console.log('Value\n', value);
         });
+        const result = await bundle.generate({format: 'es'});
+        assert(result.output[0].code, expectedCode);
     });
 });
