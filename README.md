@@ -13,7 +13,7 @@ $ npm i -D rollup-plugin-postcss-lit
 Add the `postcssLit` plugin _after_ `postcss`. This wraps postcss exported style strings with LitElement's `css`
 template literal tag. 
 
-```ecmascript 6
+```javascript
 // rollup.config.js
 import postcss from 'rollup-plugin-postcss';
 import postcssLit from 'rollup-plugin-postcss-lit';
@@ -41,7 +41,7 @@ import myStyles from './styles.css';
 @customElement('my-component')
 export class MyComponent extends LitElement {
     
-    static styles = [myStyles];
+    static styles = myStyles;
     
     render() {
         // ...
@@ -53,7 +53,7 @@ export class MyComponent extends LitElement {
 
 The plugin accepts the following options:
 
-```ecmascript 6
+```javascript
 postcssLit({
   // A glob (or array of globs) of files to include.
   // By default this corresponds to the default extensions
