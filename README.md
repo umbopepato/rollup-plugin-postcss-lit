@@ -25,8 +25,7 @@ export default {
   },
   plugins: [
     postcss({
-      inject: false, // Injecting is not necessary if you only need to
-                     // import styles in LitElement components
+      // ...
     }),
     postcssLit(),
   ],
