@@ -1,6 +1,11 @@
 import {createFilter} from 'rollup-pluginutils';
 
-export default function postcssLit(options = {
+export interface PostcssLitOptions {
+    include: string | string[];
+    exclude: string | string[];
+}
+
+export default function postcssLit(options: PostcssLitOptions = {
     include: '**/*.{css,sss,pcss}',
     exclude: null,
 }) {

@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "lib": [ "es2017" ],
+    "target": "es6",
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "declaration": true,
+    "outDir": "dist"
+  },
+  "files": [ "index.ts"]
+}

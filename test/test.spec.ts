@@ -1,7 +1,7 @@
 import postcssLit from '../index';
-import postcss from 'rollup-plugin-postcss';
+import * as postcss from 'rollup-plugin-postcss';
 import * as rollup from 'rollup';
-import assert from 'assert';
+import * as assert from 'assert';
 
 const expectedCode = `
 import {css as css$1} from 'lit-element';
