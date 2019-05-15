@@ -37,6 +37,7 @@
     "typescript": "^3.4.5"
   },
   "dependencies": {
+    "magic-string": "^0.25.2",
     "rollup-pluginutils": "^2.6.0"
   },
   "files": [

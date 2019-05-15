@@ -1,8 +1,9 @@
 import {createFilter} from 'rollup-pluginutils';
+import MagicString from 'magic-string';
 
 export interface PostcssLitOptions {
-    include: string | string[];
-    exclude: string | string[];
+    include?: string | string[];
+    exclude?: string | string[];
 }
 
 export default function postcssLit(options: PostcssLitOptions = {
@@ -14,13 +15,20 @@ export default function postcssLit(options: PostcssLitOptions = {
         name: 'postcss-lit',
         transform(code, id) {
             if (!filter(id)) return;
-            let result = 'import {css as cssTag} from \'lit-element\';\n';
-            result += code.replace(/"((?:\\"|.)*)"/g, 'cssTag`$1`');
+            const pattern = /"((?:\\"|.)*)"/g;
+            const magicString = new MagicString(code);
+            magicString.prepend('import {css as cssTag} from \'lit-element\';\n');
+            let match;
+            while ((match = pattern.exec(code))) {
+                const start = match.index;
+                const end = start + match[0].length;
+                magicString.overwrite(start, end, `cssTag\`${match[1]}\``);
+            }
             return {
-                code: result,
-                map: {
-                    mappings: '',
-                },
+                code: magicString.toString(),
+                map: magicString.generateMap({
+                    hires: true,
+                }),
             };
         }
     };
