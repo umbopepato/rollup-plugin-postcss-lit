@@ -29,16 +29,16 @@
   },
   "homepage": "https://github.com/umbopepato/rollup-plugin-postcss-lit#readme",
   "devDependencies": {
-    "@types/mocha": "^5.2.6",
-    "mocha": "^6.1.4",
-    "rollup": "^1.11.3",
+    "@types/mocha": "^5.2.7",
+    "mocha": "^6.2.0",
+    "rollup": "^1.19.3",
     "rollup-plugin-postcss": "^2.0.3",
-    "ts-node": "^8.1.0",
-    "typescript": "^3.4.5"
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.3"
   },
   "dependencies": {
-    "magic-string": "^0.25.2",
-    "rollup-pluginutils": "^2.6.0"
+    "magic-string": "^0.25.3",
+    "rollup-pluginutils": "^2.8.1"
   },
   "files": [
     "dist"

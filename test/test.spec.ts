@@ -3,27 +3,25 @@ import * as postcss from 'rollup-plugin-postcss';
 import * as rollup from 'rollup';
 import * as assert from 'assert';
 
-const expectedCode = `
-import {css as css$1} from 'lit-element';
-
-export var css$1\`.test {
-    color: white;
-    background: url("./prova.jpg");
-}\`
-`;
-
 describe('rollup-plugin-postcss-lit', () => {
     it('should wrap an exported style string in the css template literal tag', async () => {
-        const bundle = await rollup.rollup({
-            input: 'test/entry.js',
-            plugins: [
-                postcss({
-                    inject: false,
-                }),
-                postcssLit(),
-            ],
-        });
-        const result = await bundle.generate({format: 'es'});
-        assert(result.output[0].code, expectedCode);
+        const actual = await renderFile('test/entry.js', [
+            postcss({
+                inject: false,
+            }),
+            postcssLit(),
+        ]);
+        // expected.js contains a semantically-equivalent version of entry.js
+        const expected = await renderFile('test/expected.js', []);
+        assert.equal(actual, expected);
     });
 });
+
+async function renderFile(file, plugins) {
+    const bundle = await rollup.rollup({
+        input: file,
+        plugins
+    });
+    const result = await bundle.generate({ format: 'es' });
+    return result.output[0].code;
+}
