@@ -70,7 +70,7 @@ postcssLit({
   include: '**/*.{css,scss}',
   // A glob (or array of globs) of files to exclude.
   // Default: undefined
-  exclude,
+  exclude: ...,
 }),
 ```
 
@@ -79,6 +79,14 @@ postcssLit({
 This plugin is meant to be used with [`rollup-plugin-postcss`](https://github.com/egoist/rollup-plugin-postcss).
 If you only need to load plain css files in your LitElement components,
 consider using [`rollup-plugin-lit-css`](https://github.com/bennypowers/rollup-plugin-lit-css).
+
+## Contributors
+
+Many thanks to:
+
+[@ThatJoeMoore](https://github.com/ThatJoeMoore)
+
+👍
 
 ### License
 
