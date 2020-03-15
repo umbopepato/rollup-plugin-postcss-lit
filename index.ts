@@ -19,7 +19,7 @@ export default function postcssLit(options: PostcssLitOptions = {
             const exportNameMatch = /^export +default +([^\s;]+)/gm.exec(code);
             if (!exportNameMatch) return;
             const exportName = exportNameMatch[1];
-            const pattern = new RegExp(`^var ${exportName}.+?"((?:\\"|.)*)"`, 'g');
+            const pattern = new RegExp(`^var +${exportName}.+?"((?:\\"|.)*)"`, 'g');
             const magicString = new MagicString(code);
             magicString.prepend('import {css as cssTag} from \'lit-element\';\n');
             let match;
