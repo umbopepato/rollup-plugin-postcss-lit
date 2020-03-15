@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/umbopepato/rollup-plugin-postcss-lit#readme",
   "devDependencies": {
-    "@types/mocha": "^5.2.7",
+    "@types/mocha": "^7.0.2",
     "mocha": "^6.2.0",
     "rollup": "^1.19.3",
     "rollup-plugin-postcss": "^2.0.3",
