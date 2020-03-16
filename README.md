@@ -1,6 +1,9 @@
 # Rollup plugin postcss lit
 
-A Rollup plugin to load postcss processed stylesheets in LitElement components
+Rollup plugin to load postcss processed stylesheets in LitElement components
+
+![](https://img.shields.io/npm/v/rollup-plugin-postcss-lit.svg)
+![](https://github.com/umbopepato/rollup-plugin-postcss-lit/workflows/Node.js%20CI/badge.svg)
 
 ## Install
 
