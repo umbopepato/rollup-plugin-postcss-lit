@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "test": "mocha -r ts-node/register test/**/*.spec.ts",
+    "test": "mocha -r esm test/test.spec.js",
     "prepublishOnly": "npm run test && rm -rf dist && npm run build"
   },
   "repository": {
@@ -30,15 +30,19 @@
   "homepage": "https://github.com/umbopepato/rollup-plugin-postcss-lit#readme",
   "devDependencies": {
     "@types/mocha": "^5.2.7",
-    "mocha": "^6.2.0",
-    "rollup": "^1.19.3",
-    "rollup-plugin-postcss": "^2.0.3",
-    "ts-node": "^8.3.0",
-    "typescript": "^3.5.3"
+    "@types/node": "^13.9.1",
+    "esm": "^3.2.25",
+    "jsdom": "^16.2.1",
+    "jsdom-global": "^3.0.2",
+    "lit-element": "^2.2.1",
+    "mocha": "^7.1.0",
+    "rollup": "^2.0.6",
+    "rollup-plugin-postcss": "^2.4.1",
+    "typescript": "^3.8.3"
   },
   "dependencies": {
-    "magic-string": "^0.25.3",
-    "rollup-pluginutils": "^2.8.1"
+    "@rollup/pluginutils": "^3.0.8",
+    "magic-string": "^0.25.3"
   },
   "files": [
     "dist"
