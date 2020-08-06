@@ -1,8 +1,8 @@
 import 'jsdom-global/register';
+import * as fs from 'fs';
 import postcss from 'rollup-plugin-postcss';
 import * as rollup from 'rollup';
 import {CSSResult} from 'lit-element';
-import * as fs from 'fs';
 import {strict as assert} from 'assert';
 import postcssLit from '../dist';
 

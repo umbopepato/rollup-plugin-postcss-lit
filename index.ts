@@ -1,39 +1,48 @@
-import {createFilter} from 'rollup-pluginutils';
-import MagicString from 'magic-string';
+import {createFilter} from '@rollup/pluginutils';
 import {Plugin} from 'rollup';
+import * as transformAst from 'transform-ast';
 
 export interface PostcssLitOptions {
-    include?: string | string[];
-    exclude?: string | string[];
+  include?: string | string[];
+  exclude?: string | string[];
 }
 
 export default function postcssLit(options: PostcssLitOptions = {
-    include: '**/*.{css,sss,pcss}',
-    exclude: null,
+  include: '**/*.{css,sss,pcss}',
+  exclude: null,
 }): Plugin {
-    const filter = createFilter(options.include, options.exclude);
-    return {
-        name: 'postcss-lit',
-        transform(code, id) {
-            if (!filter(id)) return;
-            const exportNameMatch = /^export +default +([^\s;]+)/gm.exec(code);
-            if (!exportNameMatch) return;
-            const exportName = exportNameMatch[1];
-            const pattern = new RegExp(`^var +${exportName}.+?"((?:\\"|.)*)"`, 'g');
-            const magicString = new MagicString(code);
-            magicString.prepend('import {css as cssTag} from \'lit-element\';\n');
-            let match;
-            if ((match = pattern.exec(code))) {
-                const start = match.index;
-                const end = start + match[0].length;
-                magicString.overwrite(start, end, `var ${exportName} = cssTag\`${match[1]}\``);
-            }
-            return {
-                code: magicString.toString(),
-                map: magicString.generateMap({
-                    hires: true,
-                }),
-            };
+  const filter = createFilter(options.include, options.exclude);
+  return {
+    name: 'postcss-lit',
+    transform(code, id) {
+      if (!filter(id)) return;
+      const ast = this.parse(code, {});
+      let defaultExportName;
+      const magicString = transformAst(code, {ast: ast},
+        node => {
+          if (node.type === 'ExportDefaultDeclaration') {
+            defaultExportName = node.declaration.name;
+          }
+        },
+      );
+      if (!defaultExportName) {
+        this.error('Default export not found');
+      }
+      magicString.walk(node => {
+        if (node.type === 'VariableDeclaration') {
+          const exportedVar = node.declarations.find(d => d.id.name === defaultExportName);
+          if (exportedVar) {
+            exportedVar.init.edit.update(`cssTag\`${exportedVar.init.value}\``);
+          }
         }
-    };
+      });
+      magicString.prepend('import {css as cssTag} from \'lit-element\';\n');
+      return {
+        code: magicString.toString(),
+        map: magicString.generateMap({
+          hires: true,
+        }),
+      };
+    },
+  };
 };
