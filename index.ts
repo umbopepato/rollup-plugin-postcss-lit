@@ -28,7 +28,7 @@ export default function postcssLit(options: PostcssLitOptions = {
         },
       );
       if (!defaultExportName) {
-        this.error('Default export not found');
+        return;
       }
       magicString.walk(node => {
         if (node.type === 'VariableDeclaration') {
