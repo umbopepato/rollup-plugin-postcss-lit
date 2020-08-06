@@ -8,7 +8,7 @@ export interface PostcssLitOptions {
 }
 
 export default function postcssLit(options: PostcssLitOptions = {
-  include: '**/*.{css,sss,pcss}',
+  include: '**/*.{css,sss,pcss,styl,stylus,sass,scss,less}',
   exclude: null,
 }): Plugin {
   const filter = createFilter(options.include, options.exclude);
