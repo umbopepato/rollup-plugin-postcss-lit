@@ -1,13 +1,13 @@
 {
   "name": "rollup-plugin-postcss-lit",
   "version": "0.2.2",
-  "description": "A Rollup plugin to load postcss processed stylesheets in LitElement components",
+  "description": "Rollup plugin to load PostCSS-processed stylesheets in LitElement components",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "mocha -r esm test/test.spec.js",
-    "prepublishOnly": "npm run test && rm -rf dist && npm run build"
+    "prepublishOnly": "rm -rf dist && npm run build && npm run test"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
     "lit-html",
     "rollup-plugin"
   ],
-  "author": "Umberto Pepato",
+  "author": "Umberto Pepato <umbo.pepato@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/umbopepato/rollup-plugin-postcss-lit/issues"
@@ -38,11 +38,11 @@
     "mocha": "^8.1.1",
     "rollup": "^2.23.0",
     "rollup-plugin-postcss": "^3.1.4",
-    "transform-ast": "^2.4.4",
     "typescript": "^3.9.7"
   },
   "dependencies": {
-    "@rollup/pluginutils": "^3.1.0"
+    "@rollup/pluginutils": "^3.1.0",
+    "transform-ast": "^2.4.4"
   },
   "files": [
     "dist"
