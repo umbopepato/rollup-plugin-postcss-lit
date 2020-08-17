@@ -52,7 +52,7 @@ export class MyComponent extends LitElement {
   // Or more!
   static styles = [myStyles, otherStyles, css`
     .foo {
-      padding: ${...};
+      color: ${...};
     }
   `];
   
@@ -81,7 +81,7 @@ export class MyComponent extends LitElement {
   static get styles() {
     return [myStyles, otherStyles, css`
       .foo {
-        padding: ${...};
+        color: ${...};
       }
     `];
   }
