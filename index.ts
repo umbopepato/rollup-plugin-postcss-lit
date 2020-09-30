@@ -8,7 +8,7 @@ export interface PostcssLitOptions {
 }
 
 const escapeBackticks = (str: string): string => str.replace(/`/g, '\\`');
-const escapeBackslash = (str: string): string => str.replace(/\\/g, '\\');
+const escapeBackslash = (str: string): string => str.replace(/\\/g, '\\\\');
 
 export default function postcssLit(options: PostcssLitOptions = {
   include: '**/*.{css,sss,pcss,styl,stylus,sass,scss,less}',
