@@ -7,8 +7,9 @@ export interface PostcssLitOptions {
   exclude?: string | string[];
 }
 
-const escapeBackticks = (str: string): string => str.replace(/`/g, '\\`');
-const escapeBackslash = (str: string): string => str.replace(/\\/g, '\\\\');
+const escape = (str: string): string => str
+  .replace(/`/g, '\\`')
+  .replace(/\\(?!`)/g, '\\\\');
 
 export default function postcssLit(options: PostcssLitOptions = {
   include: '**/*.{css,sss,pcss,styl,stylus,sass,scss,less}',
@@ -35,10 +36,7 @@ export default function postcssLit(options: PostcssLitOptions = {
         if (node.type === 'VariableDeclaration') {
           const exportedVar = node.declarations.find(d => d.id.name === defaultExportName);
           if (exportedVar) {
-            let cssImport = escapeBackslash(exportedVar.init.value)
-            cssImport = escapeBackticks(cssImport)
-
-            exportedVar.init.edit.update(`cssTag\`${cssImport}\``);
+            exportedVar.init.edit.update(`cssTag\`${escape(exportedVar.init.value)}\``);
           }
         }
       });

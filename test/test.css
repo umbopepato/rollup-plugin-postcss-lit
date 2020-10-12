@@ -2,3 +2,7 @@
     color: white;
     background: url("./test.jpg");
 }
+
+.test:after {
+    content: "\2014";
+}
