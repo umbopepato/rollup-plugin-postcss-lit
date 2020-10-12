@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-postcss-lit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Rollup plugin to load PostCSS-processed stylesheets in LitElement components",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
