@@ -23,10 +23,10 @@ describe('rollup-plugin-postcss-lit', () => {
 
     it('should wrap a default export literal', async () => {
         const outFile = './test/out-literal.js';
-        const cssText = fs.readFileSync('./test/test.css', 'UTF-8');
         await renderFile('./test/entry-literal.js', outFile,[
             postcssLit({ include: '**/test-literal.js' }),
         ]);
+        const cssText = await import('./test-literal').then(m => m.default);
         const litStyle = await import('./out-literal').then(m => m.default);
         assert.ok(litStyle instanceof CSSResult);
         assert.equal(litStyle.cssText, cssText);
