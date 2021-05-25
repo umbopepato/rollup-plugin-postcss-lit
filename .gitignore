@@ -3,3 +3,4 @@ node_modules
 dist
 test/out.js
 test/out-literal.js
+test/out-import.js

@@ -5,17 +5,23 @@ import * as transformAst from 'transform-ast';
 export interface PostcssLitOptions {
   include?: string | string[];
   exclude?: string | string[];
+  importPackage?: string;
 }
 
 const escape = (str: string): string => str
   .replace(/`/g, '\\`')
   .replace(/\\(?!`)/g, '\\\\');
 
-export default function postcssLit(options: PostcssLitOptions = {
-  include: '**/*.{css,sss,pcss,styl,stylus,sass,scss,less}',
-  exclude: null,
-}): Plugin {
-  const filter = createFilter(options.include, options.exclude);
+export default function postcssLit(options: PostcssLitOptions = {}): Plugin {
+  const defaultOptions = {
+    include: '**/*.{css,sss,pcss,styl,stylus,sass,scss,less}',
+    exclude: null,
+    importPackage: 'lit-element'
+  };
+
+  const opts = {...defaultOptions, ...options};
+  const filter = createFilter(opts.include, opts.exclude);
+
   return {
     name: 'postcss-lit',
     transform(code, id) {
@@ -51,7 +57,7 @@ export default function postcssLit(options: PostcssLitOptions = {
           node.declaration.edit.update(`cssTag\`${escape(node.declaration.value)}\``)
         }
       });
-      magicString.prepend('import {css as cssTag} from \'lit-element\';\n');
+      magicString.prepend(`import {css as cssTag} from '${opts.importPackage}';\n`);
       return {
         code: magicString.toString(),
         map: magicString.generateMap({
