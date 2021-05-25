@@ -28,7 +28,6 @@ export default function postcssLit(options: PostcssLitOptions = {
       let isDeclarationLiteral = false;
       const magicString = transformAst(code, {ast: ast},
         node => {
-          console.log (node.type);
           if (node.type === 'ExportDefaultDeclaration') {
             defaultExportName = node.declaration.name;
 
