@@ -1,6 +1,6 @@
 import {createFilter} from '@rollup/pluginutils';
-import {Plugin} from 'rollup';
 import * as transformAst from 'transform-ast';
+import {PluginOption} from 'vite';
 
 export interface PostcssLitOptions {
   include?: string | string[];
@@ -12,7 +12,7 @@ const escape = (str: string): string => str
   .replace(/`/g, '\\`')
   .replace(/\\(?!`)/g, '\\\\');
 
-export default function postcssLit(options: PostcssLitOptions = {}): Plugin {
+export default function postcssLit(options: PostcssLitOptions = {}): PluginOption {
   const defaultOptions = {
     include: '**/*.{css,sss,pcss,styl,stylus,sass,scss,less}',
     exclude: null,
@@ -24,6 +24,7 @@ export default function postcssLit(options: PostcssLitOptions = {}): Plugin {
 
   return {
     name: 'postcss-lit',
+    enforce: 'post',
     transform(code, id) {
       if (!filter(id)) return;
       const ast = this.parse(code, {});

@@ -1,7 +1,7 @@
 {
   "name": "rollup-plugin-postcss-lit",
   "version": "1.0.1",
-  "description": "Rollup plugin to load PostCSS-processed stylesheets in LitElement components",
+  "description": "Rollup plugin to load PostCSSed stylesheets in LitElement components",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -18,11 +18,16 @@
     "css",
     "lit",
     "lit-element",
-    "sass",
     "lit-html",
-    "rollup-plugin"
+    "sass",
+    "scss",
+    "less",
+    "stylus",
+    "css-modules",
+    "rollup-plugin",
+    "vite-plugin"
   ],
-  "author": "Umberto Pepato <umbo.pepato@gmail.com>",
+  "author": "Umberto Pepato <hi@umbo.dev>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/umbopepato/rollup-plugin-postcss-lit/issues"
@@ -32,16 +37,18 @@
     "@types/mocha": "^8.0.1",
     "@types/node": "^14.0.27",
     "esm": "^3.2.25",
-    "jsdom": "^16.3.0",
+    "jsdom": "^16.6.0",
     "jsdom-global": "^3.0.2",
-    "lit-element": "^2.3.1",
-    "mocha": "^8.1.1",
-    "rollup": "^2.23.0",
-    "rollup-plugin-postcss": "^3.1.4",
-    "typescript": "^3.9.7"
+    "lit-element": "^2.5.1",
+    "mocha": "8.1.1",
+    "postcss": "^8.3.0",
+    "rollup": "^2.50.1",
+    "rollup-plugin-postcss": "^4.0.0",
+    "typescript": "^4.2.4",
+    "vite": "^2.3.4"
   },
   "dependencies": {
-    "@rollup/pluginutils": "^3.1.0",
+    "@rollup/pluginutils": "^4.1.0",
     "transform-ast": "^2.4.4"
   },
   "files": [
