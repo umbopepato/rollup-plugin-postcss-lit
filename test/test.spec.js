@@ -19,6 +19,37 @@ describe('rollup-plugin-postcss-lit', () => {
         const litStyle = await import('./out').then(m => m.default);
         assert.ok(litStyle instanceof CSSResult);
         assert.equal(litStyle.cssText, cssText);
+
+        const outFileText = fs.readFileSync('./test/out.js', 'UTF-8');
+        const hasLitElementImport = outFileText.includes(`from 'lit-element';`);
+        assert.ok(hasLitElementImport);
+    });
+
+    it('should wrap a default export literal', async () => {
+        const outFile = './test/out-literal.js';
+        await renderFile('./test/entry-literal.js', outFile,[
+            postcssLit({ include: '**/test-literal.js' }),
+        ]);
+        const cssText = await import('./test-literal').then(m => m.default);
+        const litStyle = await import('./out-literal').then(m => m.default);
+        assert.ok(litStyle instanceof CSSResult);
+        assert.equal(litStyle.cssText, cssText);
+    });
+
+    it('can accept a different import package', async () => {
+        const outFile = './test/out-import.js';
+        await renderFile('./test/entry.js', outFile,[
+            postcss({
+                inject: false,
+            }),
+            postcssLit({
+                importPackage: 'lit',
+            }),
+        ]);
+
+        const outFileText = fs.readFileSync('./test/out-import.js', 'UTF-8');
+        const hasLitElementImport = outFileText.includes(`from 'lit';`);
+        assert.ok(hasLitElementImport);
     });
 });
 

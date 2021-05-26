@@ -15,7 +15,7 @@ $ npm i -D rollup-plugin-postcss-lit
 ## Usage
 
 Add `postcssLit` plugin _after_ `postcss`. This wraps PostCSS-processed styles in LitElement's `css`
-template literal tag so you can import them directly in your components. 
+template literal tag so you can import them directly in your components.
 
 ```javascript
 // rollup.config.js
@@ -45,17 +45,17 @@ import otherStyles from './other-styles.scss';
 
 @customElement('my-component')
 export class MyComponent extends LitElement {
-  
+
   // Add a single style
   static styles = myStyles;
-  
+
   // Or more!
   static styles = [myStyles, otherStyles, css`
     .foo {
       color: ${...};
     }
   `];
-  
+
   render() {
     // ...
   }
@@ -71,12 +71,12 @@ import myStyles from './styles.css';
 import otherStyles from './other-styles.scss';
 
 export class MyComponent extends LitElement {
-  
+
   // Add a single style
   static get styles() {
     return myStyles;
   }
-  
+
   // Or more!
   static get styles() {
     return [myStyles, otherStyles, css`
@@ -85,7 +85,7 @@ export class MyComponent extends LitElement {
       }
     `];
   }
-  
+
   render() {
     // ...
   }
@@ -109,6 +109,10 @@ postcssLit({
   // Default: null
   exclude: ...,
 
+  // A string denoting the name of the package from which to import the `css`
+  // template tag function. For Lit 2 this can be changed to 'lit'
+  // Default: 'lit-element'
+  importPackage: '...',
 }),
 ```
 
@@ -127,4 +131,4 @@ consider using [`rollup-plugin-lit-css`](https://github.com/bennypowers/rollup-p
 
 ### License
 
-This project is licensed under the MIT License, see [LICENSE](./LICENSE) for details. 
+This project is licensed under the MIT License, see [LICENSE](./LICENSE) for details.
