@@ -9,7 +9,7 @@ import postcssLit from '../dist';
 describe('rollup-plugin-postcss-lit', () => {
     it('should wrap an exported style string in the css template literal tag', async () => {
         const outFile = './test/out.js';
-        const cssText = fs.readFileSync('./test/test.css', 'UTF-8');
+        const cssText = fs.readFileSync('./test/test.css', 'utf-8');
         await renderFile('./test/entry.js', outFile,[
             postcss({
                 inject: false,
@@ -20,7 +20,7 @@ describe('rollup-plugin-postcss-lit', () => {
         assert.ok(litStyle instanceof CSSResult);
         assert.equal(litStyle.cssText, cssText);
 
-        const outFileText = fs.readFileSync('./test/out.js', 'UTF-8');
+        const outFileText = fs.readFileSync('./test/out.js', 'utf-8');
         const hasLitElementImport = outFileText.includes(`from 'lit-element';`);
         assert.ok(hasLitElementImport);
     });
@@ -47,7 +47,7 @@ describe('rollup-plugin-postcss-lit', () => {
             }),
         ]);
 
-        const outFileText = fs.readFileSync('./test/out-import.js', 'UTF-8');
+        const outFileText = fs.readFileSync('./test/out-import.js', 'utf-8');
         const hasLitElementImport = outFileText.includes(`from 'lit';`);
         assert.ok(hasLitElementImport);
     });
