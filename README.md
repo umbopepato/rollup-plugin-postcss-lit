@@ -1,6 +1,6 @@
 # Rollup plugin postcss lit
 
-Rollup plugin to load PostCSS-processed stylesheets in LitElement components
+Rollup plugin to load PostCSSed stylesheets in LitElement components
 
 ![](https://github.com/umbopepato/rollup-plugin-postcss-lit/workflows/Node.js%20CI/badge.svg)
 [![](https://img.shields.io/npm/v/rollup-plugin-postcss-lit.svg)](https://npmjs.org/package/rollup-plugin-postcss-lit)
@@ -14,8 +14,8 @@ $ npm i -D rollup-plugin-postcss-lit
 
 ## Usage
 
-Add `postcssLit` plugin _after_ `postcss`. This wraps PostCSS-processed styles in LitElement's `css`
-template literal tag so you can import them directly in your components.
+Add `postcssLit` plugin _after_ `postcss`. This wraps PostCSSed styles in Lit's `css`
+template literal tag, so you can import them directly in your components.
 
 ```javascript
 // rollup.config.js
@@ -95,6 +95,46 @@ customElements.define('my-component', MyComponent);
 ```
 
 </details>
+
+### Usage with Lit 2
+ 
+If you're using Lit 2, set the [`importPackage` option](#options) accordingly:
+
+```javascript
+// rollup.config.js
+import postcss from 'rollup-plugin-postcss';
+import postcssLit from 'rollup-plugin-postcss-lit';
+
+export default {
+  input: 'entry.js',
+  output: {
+    // ...
+  },
+  plugins: [
+    postcss({
+      // ...
+    }),
+    postcssLit({
+      importPackage: 'lit',
+    }),
+  ],
+}
+```
+
+### Usage with Vite
+
+This plugin is pre-configured to work with Vite, just add it to `plugins` and your styles will be Lit-ified ✨
+
+```javascript
+// vite.config.js/ts
+import postcssLit from 'rollup-plugin-postcss-lit';
+
+export default {
+  plugins: [
+    postcssLit(),
+  ],
+};
+```
 
 ## Options
 
