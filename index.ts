@@ -2,7 +2,7 @@ import {createFilter} from '@rollup/pluginutils';
 import * as transformAst from 'transform-ast';
 import {PluginOption} from 'vite';
 
-export interface PostcssLitOptions {
+interface PostcssLitOptions {
   include?: string | string[];
   exclude?: string | string[];
   importPackage?: string;
@@ -12,7 +12,7 @@ const escape = (str: string): string => str
   .replace(/`/g, '\\`')
   .replace(/\\(?!`)/g, '\\\\');
 
-export default function postcssLit(options: PostcssLitOptions = {}): PluginOption {
+export = function postcssLit(options: PostcssLitOptions = {}): PluginOption {
   const defaultOptions = {
     include: '**/*.{css,sss,pcss,styl,stylus,sass,scss,less}',
     exclude: null,
