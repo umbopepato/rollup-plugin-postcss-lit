@@ -16,7 +16,7 @@ export = function postcssLit(options: PostcssLitOptions = {}): PluginOption {
   const defaultOptions = {
     include: '**/*.{css,sss,pcss,styl,stylus,sass,scss,less}',
     exclude: null,
-    importPackage: 'lit-element'
+    importPackage: 'lit'
   };
 
   const opts = {...defaultOptions, ...options};
