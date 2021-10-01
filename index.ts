@@ -3,8 +3,23 @@ import * as transformAst from 'transform-ast';
 import {PluginOption} from 'vite';
 
 interface PostcssLitOptions {
+  /**
+   * A glob (or array of globs) of files to include.
+   * @default: '** /*.{css,sss,pcss,styl,stylus,sass,scss,less}'
+   */
   include?: string | string[];
+
+  /**
+   * A glob (or array of globs) of files to exclude.
+   * @default: null
+   */
   exclude?: string | string[];
+
+  /**
+   * A string denoting the name of the package from which to import the `css`
+   * template tag function. For lit-element this can be changed to 'lit-element'
+   * @default: 'lit'
+   */
   importPackage?: string;
 }
 
@@ -13,13 +28,13 @@ const escape = (str: string): string => str
   .replace(/\\(?!`)/g, '\\\\');
 
 export = function postcssLit(options: PostcssLitOptions = {}): PluginOption {
-  const defaultOptions = {
+  const defaultOptions: PostcssLitOptions = {
     include: '**/*.{css,sss,pcss,styl,stylus,sass,scss,less}',
     exclude: null,
-    importPackage: 'lit'
+    importPackage: 'lit',
   };
 
-  const opts = {...defaultOptions, ...options};
+  const opts: PostcssLitOptions = {...defaultOptions, ...options};
   const filter = createFilter(opts.include, opts.exclude);
 
   return {

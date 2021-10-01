@@ -2,9 +2,9 @@
 
 Rollup plugin to load PostCSSed stylesheets in LitElement components
 
-![](https://github.com/umbopepato/rollup-plugin-postcss-lit/workflows/Node.js%20CI/badge.svg)
-[![](https://img.shields.io/npm/v/rollup-plugin-postcss-lit.svg)](https://npmjs.org/package/rollup-plugin-postcss-lit)
-[![](https://img.shields.io/badge/license-MIT-brightgreen)](LICENSE)
+![Node.js CI](https://github.com/umbopepato/rollup-plugin-postcss-lit/workflows/Node.js%20CI/badge.svg)
+[![Npm release](https://img.shields.io/npm/v/rollup-plugin-postcss-lit.svg)](https://npmjs.org/package/rollup-plugin-postcss-lit)
+[![MIT License](https://img.shields.io/badge/license-MIT-brightgreen)](LICENSE)
 
 ## Install
 
@@ -39,7 +39,8 @@ export default {
 Add PostCSSed stylesheets to your LitElement components:
 
 ```typescript
-import {customElement, LitElement, css} from 'lit-element';
+import {LitElement, css} from 'lit';
+import {customElement} from 'lit/decorators.js';
 import myStyles from './styles.css';
 import otherStyles from './other-styles.scss';
 
@@ -66,7 +67,7 @@ export class MyComponent extends LitElement {
 <summary>JS version</summary>
 
 ```javascript
-import {LitElement, css} from 'lit-element';
+import {LitElement, css} from 'lit';
 import myStyles from './styles.css';
 import otherStyles from './other-styles.scss';
 
@@ -96,9 +97,9 @@ customElements.define('my-component', MyComponent);
 
 </details>
 
-### Usage with Lit 2
- 
-If you're using Lit 2, set the [`importPackage` option](#options) accordingly:
+### Usage with lit-element
+
+If you're using the `lit-element` package, set the [`importPackage` option](#options) accordingly:
 
 ```javascript
 // rollup.config.js
@@ -115,7 +116,7 @@ export default {
       // ...
     }),
     postcssLit({
-      importPackage: 'lit',
+      importPackage: 'lit-element',
     }),
   ],
 }
@@ -150,11 +151,35 @@ postcssLit({
   exclude: ...,
 
   // A string denoting the name of the package from which to import the `css`
-  // template tag function. For Lit 2 this can be changed to 'lit'
-  // Default: 'lit-element'
-  importPackage: '...',
+  // template tag function. For lit-element this can be changed to 'lit-element'
+  // Default: 'lit'
+  importPackage: ...,
 }),
 ```
+
+## PostCSS plugin setup
+
+`rollup-plugin-postcss` injects all the imported stylesheets in `<head>` by default: this causes an unnecessary style
+duplication if you're using the default [ShadowDOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM)
+-based style encapsulation in your Lit components. Unless you're using
+[Light DOM](https://lit.dev/docs/components/shadow-dom/#implementing-createrenderroot),
+consider disabling the `inject` option:
+
+```javascript
+// rollup.config.js
+
+export default {
+  ...
+  plugins: [
+    postcss({
+      inject: false,
+    }),
+    postcssLit(),
+  ],
+};
+```
+
+> ℹ️ This does not apply to Vite, see [#40](https://github.com/umbopepato/rollup-plugin-postcss-lit/issues/40).
 
 ## When should I use it?
 
