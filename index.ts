@@ -23,7 +23,10 @@ interface PostcssLitOptions {
   importPackage?: string;
 }
 
+const assetUrlRE = /__VITE_ASSET__([a-z\d]{8})__(?:\$_(.*?)__)?/g;
+
 const escape = (str: string): string => str
+  .replace(assetUrlRE,'${unsafeCSSTag("__VITE_ASSET__$1__$2")}')
   .replace(/`/g, '\\`')
   .replace(/\\(?!`)/g, '\\\\');
 
@@ -73,7 +76,7 @@ export = function postcssLit(options: PostcssLitOptions = {}): PluginOption {
           node.declaration.edit.update(`cssTag\`${escape(node.declaration.value)}\``)
         }
       });
-      magicString.prepend(`import {css as cssTag} from '${opts.importPackage}';\n`);
+      magicString.prepend(`import {css as cssTag, unsafeCSS as unsafeCSSTag} from '${opts.importPackage}';\n`);
       return {
         code: magicString.toString(),
         map: magicString.generateMap({
