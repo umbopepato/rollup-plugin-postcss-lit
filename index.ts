@@ -4,21 +4,25 @@ import {PluginOption} from 'vite';
 
 interface PostcssLitOptions {
   /**
-   * A glob (or array of globs) of files to include.
-   * @default: '** /*.{css,sss,pcss,styl,stylus,sass,scss,less}'
+   * A glob (or array of globs) of files to include
+   *
+   * @default: '**&#47;*.{css,sss,pcss,styl,stylus,sass,scss,less}?(*)'
    */
   include?: string | string[];
 
   /**
-   * A glob (or array of globs) of files to exclude.
-   * @default: null
+   * A glob (or array of globs) of files to exclude
+   *
+   * The default filter is used to prevent `<style>` HTML tags from being processed in Vite contexts
+   * @default '**&#47;*\?direct*'
    */
   exclude?: string | string[];
 
   /**
    * A string denoting the name of the package from which to import the `css`
    * template tag function. For lit-element this can be changed to 'lit-element'
-   * @default: 'lit'
+   *
+   * @default 'lit'
    */
   importPackage?: string;
 }
@@ -30,7 +34,7 @@ const escape = (str: string): string => str
 export = function postcssLit(options: PostcssLitOptions = {}): PluginOption {
   const defaultOptions: PostcssLitOptions = {
     include: '**/*.{css,sss,pcss,styl,stylus,sass,scss,less}?(*)',
-    exclude: null,
+    exclude: '**/*\?direct*',
     importPackage: 'lit',
   };
 

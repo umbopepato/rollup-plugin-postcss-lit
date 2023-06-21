@@ -148,17 +148,27 @@ import myStyles from './styles.css?inline';
 ```javascript
 postcssLit({
 
-  // A glob (or array of globs) of files to include.
-  // Default: **/*.{css,sss,pcss,styl,stylus,sass,scss,less}
+  /**
+   * A glob (or array of globs) of files to include
+   *
+   * @default '**‎/*.{css,sss,pcss,styl,stylus,sass,scss,less}?(*)'
+   */
   include: ...,
 
-  // A glob (or array of globs) of files to exclude.
-  // Default: null
+  /**
+   * A glob (or array of globs) of files to exclude
+   *
+   * The default filter is used to prevent `<style>` HTML tags from being processed in Vite contexts 
+   * @default '**‎/*\?direct*'
+   */
   exclude: ...,
 
-  // A string denoting the name of the package from which to import the `css`
-  // template tag function. For lit-element this can be changed to 'lit-element'
-  // Default: 'lit'
+  /**
+   * A string denoting the name of the package from which to import the `css`
+   * template tag function. For lit-element this can be changed to 'lit-element'
+   * 
+   * @default 'lit'
+   */
   importPackage: ...,
 }),
 ```
