@@ -34,6 +34,8 @@
   },
   "homepage": "https://github.com/umbopepato/rollup-plugin-postcss-lit#readme",
   "devDependencies": {
+    "@types/estree": "^1.0.1",
+    "glob": "^10.2.7",
     "@types/mocha": "^10.0.1",
     "@types/node": "^18.16.1",
     "jsdom": "^22.1.0",

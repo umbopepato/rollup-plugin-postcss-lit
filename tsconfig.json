@@ -8,6 +8,5 @@
     "declaration": true,
     "skipLibCheck": true,
     "outDir": "dist"
-  },
-  "files": [ "index.ts"]
+  }
 }
