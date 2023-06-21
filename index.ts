@@ -29,7 +29,7 @@ const escape = (str: string): string => str
 
 export = function postcssLit(options: PostcssLitOptions = {}): PluginOption {
   const defaultOptions: PostcssLitOptions = {
-    include: '**/*.{css,sss,pcss,styl,stylus,sass,scss,less}',
+    include: '**/*.{css,sss,pcss,styl,stylus,sass,scss,less}?(*)',
     exclude: null,
     importPackage: 'lit',
   };
