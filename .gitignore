@@ -1,6 +1,4 @@
 node_modules
 .idea
 dist
-test/out.js
-test/out-literal.js
-test/out-import.js
+test/out*
