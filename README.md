@@ -135,7 +135,13 @@ export default {
     postcssLit(),
   ],
 };
+
+
+// my-component.js/ts
+import myStyles from './styles.css?inline';
 ```
+
+> ⚠️ Use the `?inline` suffix to prevent Vite from adding the styles to the CSS bundle as well
 
 ## Options
 
@@ -178,8 +184,6 @@ export default {
   ],
 };
 ```
-
-> ℹ️ This does not apply to Vite, see [#40](https://github.com/umbopepato/rollup-plugin-postcss-lit/issues/40).
 
 ## When should I use it?
 
