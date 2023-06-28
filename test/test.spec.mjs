@@ -58,7 +58,30 @@ describe('rollup-plugin-postcss-lit', () => {
     }
   });
 
-  it('can accept a different import package', async () => {
+  it('should wrap Vite asset expressions in double quotes', async () => {
+    const intermediateFile = 'vite-assets.mjs';
+    const outFile = 'out-vite-assets.mjs';
+    const input = 'virtual-entry.mjs';
+    const bundle = await rollup.rollup({
+      input,
+      plugins: [
+        virtual({
+          [input]: `import test from './test/${intermediateFile}'; export default test;`,
+        }),
+        postcssLit({ include: `**/${intermediateFile}` }),
+      ],
+    });
+    await bundle.write({
+      file: `./test/${outFile}`,
+      format: 'es',
+    });
+    const litStyle = await import(`./${outFile}`).then(m => m.default);
+    assert.ok(litStyle instanceof CSSResult);
+    const buildOutput = readFile(`./test/${outFile}`);
+    assert.ok(buildOutput.includes('${unsafeCSS("__VITE_ASSET__12345678__")}'));
+  });
+
+  it('should accept a different import package', async () => {
     const outFile = './test/out-import.mjs';
     await renderFile(entry, outFile, [
       postcss({

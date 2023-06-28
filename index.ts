@@ -21,7 +21,7 @@ interface PostcssLitOptions {
    * A glob (or array of globs) of files to exclude
    *
    * The default filter is used to prevent `<style>` HTML tags from being processed in Vite contexts
-   * @default '**&#47;*\?direct*'
+   * @default '**&#47;*?direct*'
    */
   exclude?: string | string[];
 
@@ -34,10 +34,21 @@ interface PostcssLitOptions {
   importPackage?: string;
 }
 
-const CSS_TAG = 'cssTag';
+const CSS_TAG_ALIAS = 'cssTag';
+const UNSAFE_CSS_TAG_ALIAS = 'unsafeCssTag';
+const VITE_ASSET_URL_EXPRESSION =
+  /__VITE_ASSET__([a-z\d]{8})__(?:\$_(.*?)__)?/g;
 
 const escape = (str: string): string =>
-  str.replace(/`/g, '\\`').replace(/\\(?!`)/g, '\\\\');
+  wrapViteAssetExpressions(
+    str.replace(/`/g, '\\`').replace(/\\(?!`)/g, '\\\\'),
+  );
+
+const wrapViteAssetExpressions = (str: string) =>
+  str.replace(
+    VITE_ASSET_URL_EXPRESSION,
+    `$\{${UNSAFE_CSS_TAG_ALIAS}("__VITE_ASSET__$1__$2")}`,
+  );
 
 export = function postcssLit(options: PostcssLitOptions = {}): PluginOption {
   const defaultOptions: PostcssLitOptions = {
@@ -114,14 +125,17 @@ export = function postcssLit(options: PostcssLitOptions = {}): PluginOption {
 
       if (cssStringNode.type === 'Literal') {
         cssStringNode.edit.update(
-          `${CSS_TAG}\`${escape(cssStringNode.value as string)}\``,
+          `${CSS_TAG_ALIAS}\`${escape(cssStringNode.value as string)}\``,
         );
       } else {
-        cssStringNode.edit.prepend(CSS_TAG);
+        cssStringNode.edit.update(
+          wrapViteAssetExpressions(cssStringNode.getSource()),
+        );
+        cssStringNode.edit.prepend(CSS_TAG_ALIAS);
       }
 
       magicString.prepend(
-        `import {css as ${CSS_TAG}} from '${opts.importPackage}';\n`,
+        `import {css as ${CSS_TAG_ALIAS}, unsafeCSS as ${UNSAFE_CSS_TAG_ALIAS}} from '${opts.importPackage}';\n`,
       );
 
       return {
