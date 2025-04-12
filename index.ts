@@ -36,8 +36,7 @@ interface PostcssLitOptions {
 
 const CSS_TAG_ALIAS = 'cssTag';
 const UNSAFE_CSS_TAG_ALIAS = 'unsafeCssTag';
-const VITE_ASSET_URL_EXPRESSION =
-  /__VITE_ASSET__([a-z\d]{8})__(?:\$_(.*?)__)?/g;
+const VITE_ASSET_URL_EXPRESSION = /__VITE_ASSET__([\w$]+)__(?:\$_(.*?)__)?/g;
 
 const escape = (str: string): string =>
   wrapViteAssetExpressions(
