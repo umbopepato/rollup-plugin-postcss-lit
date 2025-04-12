@@ -159,7 +159,7 @@ postcssLit({
    * A glob (or array of globs) of files to exclude
    *
    * The default filter is used to prevent `<style>` HTML tags from being processed in Vite contexts 
-   * @default '**‎/*\?direct*'
+   * @default '**‎/*?direct*'
    */
   exclude: ...,
 
